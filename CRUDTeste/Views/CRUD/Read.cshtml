@@ -1,0 +1,79 @@
+﻿@model IEnumerable<CRUDTeste.Usuario>
+
+@{
+    ViewBag.Title = "Read";
+}
+
+<h2>Lista de Usuários</h2>
+
+<p>
+    @Html.ActionLink("Criar", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nome)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Endereco)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Telefone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DataCadastro)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Endereco)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Telefone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataCadastro)
+            </td>
+            <td>
+                @Html.ActionLink("Atualizar", "Update", new { UsuarioId = item.UsuarioId }) |
+                @Html.ActionLink("Detalhes", "Details", new { UsuarioId = item.UsuarioId }) |
+                @Html.ActionLink("Deletar", "Delete", new { UsuarioId = item.UsuarioId })
+
+            </td>
+        </tr>
+    }
+
+</table>
+
+<div id="modal" class="modal fade" role="dialog" />
+
+@section scripts{
+    <script>
+        $(function () {
+
+            $(".delete").click(function () {
+                var id = $(this).attr("data-id");
+                alert(id);
+                $("#modal").load("Delete?id=" + id, function () {
+                    $("#modal").modal();
+                })
+            });
+
+
+
+        })
+    </script>
+}
